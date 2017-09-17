@@ -3,7 +3,7 @@
 from util.common import DictObj
 
 
-class Resource:
+class ResourceInfo:
     def __init__(self, title, size, movie_link, link):
         self.title = title
         self.size = size

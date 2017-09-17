@@ -1,8 +1,8 @@
 # coding=utf-8
 
-from .resource import Resource
+from .resource import ResourceInfo
 
 
 __all__ = [
-    Resource,
+    ResourceInfo,
 ]
