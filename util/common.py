@@ -22,7 +22,7 @@ class DictObj(dict):
         self[key] = value
 
 
-def not_none_string(content, default_value=""):
+def get_string(content, default_value=""):
     if content is None:
         return default_value
     return content

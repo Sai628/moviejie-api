@@ -15,7 +15,7 @@ def get_html(url):
         response = requests.get(url)
         return response.text
     except Exception as e:
-        my_print_error("Error: %s\nget_url_content -- %s" % (e, url))
+        print_error("Error: %s\nget_url_content -- %s" % (e, url))
         return None
 
 
@@ -30,16 +30,11 @@ def send_request(url, json_data):
         response = requests.post(url=url, json=json_data, headers=headers)
         return response.text
     except Exception as e:
-        my_print_error("Error: %s\nsend_post_requestion -- %s" % (e, url))
+        print_error("Error: %s\nsend_post_requestion -- %s" % (e, url))
         return None
 
 
-def my_print(text, debug=True):
-    if debug:
-        print(text)
-
-
-def my_print_error(text):
+def print_error(text):
     print('\033[0;31;40m%s' % text)
 
 
