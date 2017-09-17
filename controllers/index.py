@@ -4,7 +4,7 @@ from flask_restful import Resource
 
 from util.helper import *
 from config import config
-from model.resource import ResourceInfo
+from model import ResourceInfo, IndexInfo
 
 
 class Index(Resource):
@@ -13,7 +13,7 @@ class Index(Resource):
         cat_titles = [tag.text for tag in index_soup.find_all('h4')]
         cat_titles = filter(lambda x: "更新" in x, cat_titles)  # 过滤出包含"更新"的类别
 
-        result = []
+        index_infos = []
         tbody_tags = [tag for tag in index_soup.find_all('tbody')[:len(cat_titles)]]
         for index, tbody_tag in enumerate(tbody_tags):
             tr_tags = tbody_tag.find_all('tr')
@@ -43,9 +43,9 @@ class Index(Resource):
                 resource_info = ResourceInfo(title=title, size=size, movie_link=movie_link, link=link)
                 resources.append(resource_info.info())
 
-            item = {'category': cat_titles[index], "resources": resources}
-            result.append(item)
+            index_info = IndexInfo(category=cat_titles[index], resources=resources)
+            index_infos.append(index_info.info())
 
         return success({
-            "result": result
+            "indexInfos": index_infos
         })
