@@ -12,7 +12,7 @@ from util import log
 
 def get_html(url):
     try:
-        response = requests.get(url)
+        response = requests.get(url, verify=False)
         return response.text
     except Exception as e:
         print_error("Error: %s\nget_url_content -- %s" % (e, url))
@@ -27,7 +27,7 @@ def get_html_soup(url):
 def send_request(url, json_data):
     try:
         headers = {"Content-Type": "application/json; charset=utf-8"}
-        response = requests.post(url=url, json=json_data, headers=headers)
+        response = requests.post(url=url, json=json_data, headers=headers, verify=False)
         return response.text
     except Exception as e:
         print_error("Error: %s\nsend_post_requestion -- %s" % (e, url))
