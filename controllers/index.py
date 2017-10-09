@@ -4,17 +4,17 @@ from flask_restful import Resource
 
 from util.helper import *
 from config import config
-from model import ResourceInfo, IndexInfo
+from model import ResourceInfo, NewInfo
 
 
 class Index(Resource):
     def get(self):
         index_soup = get_html_soup(config.API_DOMAIN)
-        cat_titles = [tag.text for tag in index_soup.find_all('h4')]
-        cat_titles = filter(lambda x: "更新" in x, cat_titles)  # 过滤出包含"更新"的类别
+        new_info_div = index_soup.find('div', {'id': 'new_links'})
+        cat_titles = [tag.text for tag in new_info_div.find_all('h4')]
 
-        index_infos = []
-        tbody_tags = [tag for tag in index_soup.find_all('tbody')[:len(cat_titles)]]
+        new_infos = []
+        tbody_tags = [tag for tag in new_info_div.find_all('tbody')[:len(cat_titles)]]
         for index, tbody_tag in enumerate(tbody_tags):
             tr_tags = tbody_tag.find_all('tr')
             resources = []
@@ -37,15 +37,16 @@ class Index(Resource):
 
                 # 获取资源的合集页面地址
                 movie_link_tag = tr.find('span', {'class': 'restitle'}).a
+                movie_link = ''
                 if movie_link_tag is not None:
                     movie_link = movie_link_tag['href']
 
                 resource_info = ResourceInfo(title=title, size=size, movie_link=movie_link, link=link)
                 resources.append(resource_info.info())
 
-            index_info = IndexInfo(category=cat_titles[index], resources=resources)
-            index_infos.append(index_info.info())
+            new_info = NewInfo(category=cat_titles[index], resources=resources)
+            new_infos.append(new_info.info())
 
         return success({
-            "indexInfos": index_infos
+            "new_infos": new_infos
         })
