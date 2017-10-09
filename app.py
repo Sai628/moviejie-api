@@ -19,6 +19,7 @@ api = restful.Api(app)
 def main():
     import controllers
     api.add_resource(controllers.Index, '/')
+    api.add_resource(controllers.Movie, '/movie/<string:movie_id>')
 
     app.run(host='0.0.0.0', port=80, debug=True)
 
