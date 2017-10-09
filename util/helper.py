@@ -5,9 +5,13 @@ import json
 
 from bs4 import BeautifulSoup
 import requests
+import requests.packages.urllib3
 
 from util import const
 from util import log
+
+
+requests.packages.urllib3.disable_warnings()
 
 
 def get_html(url):

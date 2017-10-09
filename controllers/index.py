@@ -4,21 +4,22 @@ from flask_restful import Resource
 
 from util.helper import *
 from config import config
-from model import ResourceInfo, NewInfo
+from model import ResourceInfo, NewInfo, HotInfo
 
 
 class Index(Resource):
     def get(self):
         index_soup = get_html_soup(config.API_DOMAIN)
-        new_info_div = index_soup.find('div', {'id': 'new_links'})
-        cat_titles = [tag.text for tag in new_info_div.find_all('h4')]
+
+        # 解析更新资源
+        new_info_div = index_soup.find('div', {'class': 'link_list'})
+        new_cat_titles = [tag.text for tag in new_info_div.find_all('h4')]
 
         new_infos = []
-        tbody_tags = [tag for tag in new_info_div.find_all('tbody')[:len(cat_titles)]]
+        tbody_tags = [tag for tag in new_info_div.find_all('tbody')[:len(new_cat_titles)]]
         for index, tbody_tag in enumerate(tbody_tags):
-            tr_tags = tbody_tag.find_all('tr')
             resources = []
-            for tr in tr_tags:
+            for tr in tbody_tag.find_all('tr'):
                 # 获取资源(电影/电视剧)的标题
                 title = tr.find('span', {'class': 'restitle'}).text.strip()
                 title = title.replace('【电影】', '')
@@ -41,12 +42,34 @@ class Index(Resource):
                 if movie_link_tag is not None:
                     movie_link = movie_link_tag['href']
 
-                resource_info = ResourceInfo(title=title, size=size, movie_link=movie_link, link=link)
+                resource_info = ResourceInfo(title=title, movie_link=movie_link, link=link, size=size)
                 resources.append(resource_info.info())
 
-            new_info = NewInfo(category=cat_titles[index], resources=resources)
+            new_info = NewInfo(category=new_cat_titles[index], resources=resources)
             new_infos.append(new_info.info())
 
+        # 解析热门/最新资源
+        hot_info_divs = index_soup.find_all('div', {'class': 'movie_list'})
+        hot_infos = []
+        for div in hot_info_divs:
+            resources = []
+            for li in div.find_all('li'):
+                title_a_tag = li.find('div', {'class': 'infos'}).a
+                title = title_a_tag.text.strip()  # 获取资源标题
+                movie_link = title_a_tag['href']  # 获取资源链接
+
+                # 获取资源评分
+                rating_tag = li.find('span', {'class': 'star'})
+                rating = rating_tag.text if rating_tag is not None else ""
+
+                resource_info = ResourceInfo(title=title, movie_link=movie_link, rating=rating)
+                resources.append(resource_info.info())
+
+            hot_cat_title = div.find('h4').text
+            hot_info = HotInfo(category=hot_cat_title, resources=resources)
+            hot_infos.append(hot_info.info())
+
         return success({
-            "new_infos": new_infos
+            "news": new_infos,
+            "hots": hot_infos
         })
