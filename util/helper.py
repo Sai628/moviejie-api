@@ -2,10 +2,12 @@
 
 from __future__ import print_function
 import json
+import time
 
 from bs4 import BeautifulSoup
 import requests
 import requests.packages.urllib3
+from selenium import webdriver
 
 from util import const
 from util import log
@@ -23,8 +25,16 @@ def get_html(url):
         return None
 
 
-def get_html_soup(url):
-    html = get_html(url)
+def get_html_soup(url, run_javascript=False):
+    if run_javascript:
+        driver = webdriver.PhantomJS()
+        driver.get(url)
+        time.sleep(10)
+        html = driver.page_source
+        driver.quit()
+        print(html)
+    else:
+        html = get_html(url)
     return BeautifulSoup(html, "lxml")
 
 
