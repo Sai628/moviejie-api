@@ -22,6 +22,9 @@ __pycache__
 # Installer logs
 pip-log.txt
 
+# selenium log
+*.log
+
 # Unit test / coverage reports
 .coverage
 .tox

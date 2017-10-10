@@ -2,12 +2,11 @@
 
 from __future__ import print_function
 import json
-import time
+import os
 
 from bs4 import BeautifulSoup
 import requests
 import requests.packages.urllib3
-from selenium import webdriver
 
 from util import const
 from util import log
@@ -25,16 +24,12 @@ def get_html(url):
         return None
 
 
-def get_html_soup(url, run_javascript=False):
-    if run_javascript:
-        driver = webdriver.PhantomJS()
-        driver.get(url)
-        time.sleep(10)
-        html = driver.page_source
-        driver.quit()
-        print(html)
-    else:
-        html = get_html(url)
+def get_html_soup(url):
+    html = get_html(url)
+    return get_soup(html)
+
+
+def get_soup(html):
     return BeautifulSoup(html, "lxml")
 
 
@@ -46,6 +41,17 @@ def send_request(url, json_data):
     except Exception as e:
         print_error("Error: %s\nsend_post_requestion -- %s" % (e, url))
         return None
+
+
+def save_content_to_file(file_path, content):
+    f = open(file_path, 'a')
+    f.write(content)
+    f.close()
+
+
+def remove_file(file_path):
+    if os.path.exists(file_path):
+        os.remove(file_path)
 
 
 def print_error(text):
