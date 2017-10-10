@@ -4,6 +4,7 @@ from .HotInfo import HotInfo
 from .LinkInfo import LinkInfo
 from .MovieInfo import MovieInfo
 from .NewInfo import NewInfo
+from .RelInfo import RelInfo
 from .ResourceInfo import ResourceInfo
 
 
@@ -12,5 +13,6 @@ __all__ = [
     LinkInfo,
     MovieInfo,
     NewInfo,
+    RelInfo,
     ResourceInfo,
 ]

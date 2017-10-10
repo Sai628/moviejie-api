@@ -4,7 +4,7 @@ from flask_restful import Resource
 
 from util.helper import *
 from config import config
-from model import MovieInfo, LinkInfo
+from model import MovieInfo, LinkInfo, ResourceInfo, RelInfo
 
 
 class Movie(Resource):
@@ -23,35 +23,62 @@ class Movie(Resource):
         genres = get_info_text(infos_div, 'genres')
         country = get_info_text(infos_div, 'country')
         release_date = get_info_text(infos_div, 'release_date')
+        runtime = get_info_text(infos_div, 'runtime')
         akaname = get_info_text(infos_div, 'akaname')
         star = get_info_text(infos_div, 'star')
 
         # 下载链接信息列表
-        links = []
+        link_infos = []
         for tr in movie_soup.find('tbody').find_all('tr'):
+            name_tag = tr.find('td', class_='movie_name')
+            if name_tag is None:
+                continue
+
             td_tags = tr.find_all('td')
-
-            name_tag = td_tags[0]
-            name = name_tag.text.strip() if name_tag is not None else ''
-
-            size = td_tags[1].text
-            dimen = td_tags[2].text
-            format = td_tags[3].text
-
-            link_a_tag = td_tags[4].a
-            link = link_a_tag['href'] if link_a_tag is not None else ''
+            name = td_tags[0].text.strip()
+            size = td_tags[1].text.strip()
+            dimen = td_tags[2].text.strip()
+            format = td_tags[3].text.strip()
+            link = td_tags[4].a['href'] if td_tags[4].a is not None else ''
 
             link_info = LinkInfo(name=name, size=size, dimen=dimen, format=format, link=link)
-            links.append(link_info.info())
+            link_infos.append(link_info.info())
+
+        # 相关影视/猜你喜欢列表
+        rel_infos = []
+        for movie_rel_div in movie_soup.find_all('div', class_='movie_rel'):
+            ul_tag = movie_rel_div.find('ul', id='related_movies')
+            if ul_tag is None:
+                continue
+
+            li_tags = ul_tag.find_all('li')
+            if li_tags is None or len(li_tags) <= 0:
+                continue
+
+            rel_resources = []
+            for li in li_tags:
+                resource_title = li.text
+                resouces_movie_link = li.a['href'] if li.a is not None else ''
+                resouces_info = ResourceInfo(title=resource_title, movie_link=resouces_movie_link)
+                rel_resources.append(resouces_info.info())
+
+            rel_cat_title = movie_rel_div.find('h2').text
+            rel_info = RelInfo(category=rel_cat_title, resources=rel_resources)
+            rel_infos.append(rel_info.info())
+
+        # 剧情简介
+        story_tag = movie_soup.find('p', id='movie_info')
+        story = story_tag.text.strip('\n') if story_tag is not None else ''
 
         movie_info = MovieInfo(title=title, banner=banner, directors=directors, writers=writers, stars=stars,
-                               genres=genres, country=country, release_date=release_date, akaname=akaname, star=star,
-                               links=links)
+                               genres=genres, country=country, release_date=release_date, runtime=runtime,
+                               akaname=akaname, star=star, links=link_infos, story=story, rel_infos=rel_infos)
 
         return success({
             "movie": movie_info.info()
         })
 
 
-def get_info_text(tag, class_):
-    return tag.find('p', class_=class_).text.split('：')[1].strip()
+def get_info_text(tag, class_name):
+    p_tag = tag.find('p', class_=class_name)
+    return p_tag.text.split('：')[1].strip() if p_tag is not None else ''
