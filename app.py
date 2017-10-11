@@ -22,7 +22,7 @@ def main():
     api.add_resource(controllers.Movie, '/movie/<string:movie_id>/')
     api.add_resource(controllers.Link, '/link/<string:link_id>/')
 
-    app.run(host='0.0.0.0', port=80, debug=True)
+    app.run(host='0.0.0.0', debug=True)
 
 
 if __name__ == '__main__':
