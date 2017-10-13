@@ -71,7 +71,7 @@ class Movie(Resource):
 
         # 剧情简介
         story_tag = movie_soup.find('p', id='movie_info')
-        story = story_tag.text.strip() if story_tag is not None else ''
+        story = story_tag.text.strip('\n').strip() if story_tag is not None else ''
 
         movie_info = MovieInfo(title=title, banner=banner, directors=directors, writers=writers, stars=stars,
                                genres=genres, country=country, release_date=release_date, runtime=runtime,
