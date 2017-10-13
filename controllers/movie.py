@@ -4,7 +4,7 @@ from flask_restful import Resource
 
 from util.helper import *
 from config import config
-from model import MovieInfo, LinkInfo, ResourceInfo, RelInfo
+from model import MovieInfo, LinkInfo, ResourceInfo
 
 
 class Movie(Resource):
@@ -45,7 +45,8 @@ class Movie(Resource):
             link_infos.append(link_info.info())
 
         # 相关影视/猜你喜欢列表
-        rel_infos = []
+        related_resources = []
+        recommended_resources = []
         for movie_rel_div in movie_soup.find_all('div', class_='movie_rel'):
             ul_tag = movie_rel_div.find('ul', id='related_movies')
             if ul_tag is None:
@@ -63,16 +64,19 @@ class Movie(Resource):
                 rel_resources.append(resouces_info.info())
 
             rel_cat_title = movie_rel_div.find('h2').text
-            rel_info = RelInfo(category=rel_cat_title, resources=rel_resources)
-            rel_infos.append(rel_info.info())
+            if rel_cat_title == '相关影视':
+                related_resources = rel_resources
+            elif rel_cat_title == '猜你喜欢':
+                recommended_resources = rel_resources
 
         # 剧情简介
         story_tag = movie_soup.find('p', id='movie_info')
-        story = story_tag.text.strip('\n') if story_tag is not None else ''
+        story = story_tag.text.strip() if story_tag is not None else ''
 
         movie_info = MovieInfo(title=title, banner=banner, directors=directors, writers=writers, stars=stars,
                                genres=genres, country=country, release_date=release_date, runtime=runtime,
-                               akaname=akaname, star=star, links=link_infos, story=story, rel_infos=rel_infos)
+                               akaname=akaname, star=star, story=story, links=link_infos,
+                               related_resources=related_resources, recommended_resources=recommended_resources)
 
         return success({
             "movie": movie_info.info()

@@ -7,9 +7,9 @@ class MovieInfo:
     """
     电影/电视剧信息model. 对应URL: /movie/<movie_id> 页面中的数据结构
     """
-    def __init__(self, title=None, banner=None, directors=None, writers=None, stars=None,
-                 genres=None, country=None, release_date=None, runtime=None, akaname=None,
-                 star=None, links=None, rel_infos=None, story=None):
+    def __init__(self, title=None, banner=None, directors=None, writers=None, stars=None, genres=None,
+                 country=None, release_date=None, runtime=None, akaname=None, star=None,  story=None,
+                 links=None, related_resources=None, recommended_resources=None):
         self.title = title  # 标题
         self.banner = banner  # 封面图URL
         self.directors = directors  # 导演
@@ -21,9 +21,10 @@ class MovieInfo:
         self.runtime = runtime  # 片长
         self.akaname = akaname  # 又名
         self.star = star  # 评分
-        self.links = links  # 下载页面链接列表
-        self.rel_infos = rel_infos  # 相关/推荐列表
         self.story = story  # 剧情简介
+        self.links = links  # 下载页面链接列表
+        self.related_resources = related_resources  # 相关资源列表
+        self.recommended_resources = recommended_resources  # 推荐资源列表
 
     def info(self):
         return DictObj({
@@ -38,7 +39,8 @@ class MovieInfo:
             "runtime": self.runtime,
             "akaname": self.akaname,
             "star": self.star,
-            "links": self.links,
-            "rel_infos": self.rel_infos,
             "story": self.story,
+            "links": self.links,
+            "related_resources": self.related_resources,
+            "recommended_resources": self.recommended_resources,
         })
