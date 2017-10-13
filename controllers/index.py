@@ -22,7 +22,7 @@ class Index(Resource):
             for tr in tbody_tag.find_all('tr'):
                 # 获取资源(电影/电视剧)的标题
                 title = tr.find('span', class_='restitle').text.strip()
-                title = title.replace('【电影】', '')
+                title = title.replace('【电影】', '').strip()
                 title_a_tag = tr.find('span', class_='restitle').a
                 if title_a_tag is not None:
                     title_a_text = title_a_tag.text.strip()
