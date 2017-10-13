@@ -21,7 +21,7 @@ class MovieInfo:
         self.runtime = runtime  # 片长
         self.akaname = akaname  # 又名
         self.star = star  # 评分
-        self.links = links  # 下载链接列表
+        self.links = links  # 下载页面链接列表
         self.rel_infos = rel_infos  # 相关/推荐列表
         self.story = story  # 剧情简介
 
