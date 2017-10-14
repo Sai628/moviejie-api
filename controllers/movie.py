@@ -2,12 +2,14 @@
 
 from flask_restful import Resource
 
+from app import cache
 from util.helper import *
 from config import config
 from model import MovieInfo, LinkInfo, ResourceInfo
 
 
 class Movie(Resource):
+    @cache.memoize(timeout=config.CACHE_EXPIRE_TIME)
     def get(self, movie_id):
         movie_soup = get_html_soup(config.API_DOMAIN + "/movie/" + movie_id)
 
@@ -82,6 +84,9 @@ class Movie(Resource):
         return success({
             "movie": movie_info.info()
         })
+
+    def __repr__(self):
+        return "%s" % self.__class__.__name__
 
 
 def get_info_text(tag, class_name):

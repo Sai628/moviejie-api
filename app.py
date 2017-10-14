@@ -4,6 +4,7 @@ import sys
 import traceback
 
 from flask import Flask
+from flask_cache import Cache
 import flask_restful as restful
 
 
@@ -14,6 +15,7 @@ sys.setdefaultencoding('utf-8')
 
 app = Flask(__name__)
 api = restful.Api(app)
+cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 
 def main():

@@ -1,13 +1,17 @@
 # coding=utf-8
 
+import json
+
 from flask_restful import Resource
 
+from app import cache
 from util.helper import *
 from config import config
 from model import ResourceInfo, NewInfo, HotInfo
 
 
 class Index(Resource):
+    @cache.memoize(timeout=config.CACHE_EXPIRE_TIME)
     def get(self):
         index_soup = get_html_soup(config.API_DOMAIN)
 
@@ -71,3 +75,6 @@ class Index(Resource):
             "news": new_infos,
             "hots": hot_infos
         })
+
+    def __repr__(self):
+        return "%s" % self.__class__.__name__

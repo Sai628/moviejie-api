@@ -68,7 +68,7 @@ def success(info=None, max_log_len=2000):
     info["status"] = const.STATUS_SUCCESS
     response_body = json_dumps(info)
     log.debug("response:%s", response_body[0:max_log_len])
-    return info
+    return json.loads(response_body)
 
 
 def fail(info=None, max_log_len=2000):
@@ -77,4 +77,4 @@ def fail(info=None, max_log_len=2000):
     info["status"] = const.STATUS_FAIL
     response_body = json_dumps(info)
     log.debug("response:%s", response_body[0:max_log_len])
-    return info
+    return json.loads(response_body)
