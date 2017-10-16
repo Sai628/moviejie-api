@@ -5,7 +5,7 @@ from util.common import DictObj
 
 class MovieInfo:
     """
-    电影/电视剧信息model. 对应URL: /movie/<movie_id> 页面中的数据结构
+    电影/电视剧信息model. 对应URL: /movie/<movie_id>/ 页面中的数据结构
     """
     def __init__(self, title=None, banner=None, directors=None, writers=None, stars=None, genres=None,
                  country=None, release_date=None, runtime=None, akaname=None, star=None,  story=None,
