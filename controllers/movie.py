@@ -19,15 +19,15 @@ class Movie(Resource):
         # 基本信息字段
         infos_div = movie_soup.find('div', id='movie_info')
         banner = infos_div.find('img')['src']
-        directors = get_info_text(infos_div, 'directors')
-        writers = get_info_text(infos_div, 'writers')
-        stars = get_info_text(infos_div, 'stars')
-        genres = get_info_text(infos_div, 'genres')
-        country = get_info_text(infos_div, 'country')
-        release_date = get_info_text(infos_div, 'release_date')
-        runtime = get_info_text(infos_div, 'runtime')
-        akaname = get_info_text(infos_div, 'akaname')
-        star = get_info_text(infos_div, 'star')
+        directors = get_p_text(infos_div, 'directors')
+        writers = get_p_text(infos_div, 'writers')
+        stars = get_p_text(infos_div, 'stars')
+        genres = get_p_text(infos_div, 'genres')
+        country = get_p_text(infos_div, 'country')
+        release_date = get_p_text(infos_div, 'release_date')
+        runtime = get_p_text(infos_div, 'runtime')
+        akaname = get_p_text(infos_div, 'akaname')
+        star = get_p_text(infos_div, 'star')
 
         # 下载链接信息列表
         link_infos = []
@@ -89,6 +89,6 @@ class Movie(Resource):
         return "%s" % self.__class__.__name__
 
 
-def get_info_text(tag, class_name):
+def get_p_text(tag, class_name):
     p_tag = tag.find('p', class_=class_name)
     return p_tag.text.split('：')[1].strip() if p_tag is not None else ''
