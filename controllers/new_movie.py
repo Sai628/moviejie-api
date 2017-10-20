@@ -12,7 +12,6 @@ class NewMovie(Resource):
     @cache.memoize(timeout=config.CACHE_EXPIRE_TIME)
     def get(self, page):
         movie_soup = get_html_soup(config.API_NEW_MOVIE + page)
-
         search_result_div = movie_soup.find('div', id='search_result')
         ul_tag = search_result_div.find('ul')
 
