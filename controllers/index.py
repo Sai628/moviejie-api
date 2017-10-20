@@ -1,7 +1,5 @@
 # coding=utf-8
 
-import json
-
 from flask_restful import Resource
 
 from app import cache
