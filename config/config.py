@@ -5,3 +5,8 @@ CACHE_EXPIRE_TIME = 1200
 
 # API地址
 API_DOMAIN = 'https://moviejie.com'
+API_INDEX = API_DOMAIN  # 首页地址
+API_NEW_MOVIE = API_DOMAIN + "/new/movie/"  # 最新电影地址
+API_NEW_TV = API_DOMAIN + "/new/tv/"  # 最新电视剧地址
+API_NEW_OST = API_DOMAIN + "/new/ost/"  # 原声大碟地址
+API_NEW_ARTICLE = API_DOMAIN + "/new/article/"  # 影评地址

@@ -13,7 +13,7 @@ from model import ResourceInfo, NewInfo, HotInfo
 class Index(Resource):
     @cache.memoize(timeout=config.CACHE_EXPIRE_TIME)
     def get(self):
-        index_soup = get_html_soup(config.API_DOMAIN)
+        index_soup = get_html_soup(config.API_INDEX)
 
         # 解析更新资源
         new_info_div = index_soup.find('div', class_='link_list')
