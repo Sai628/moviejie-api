@@ -3,7 +3,7 @@
 from .index import Index
 from .movie import Movie
 from .link import Link
-from .new_movie import NewMovie
+from .new import NewMovie, NewTv
 
 
 __all__ = [
@@ -11,4 +11,5 @@ __all__ = [
     Movie,
     Link,
     NewMovie,
+    NewTv,
 ]

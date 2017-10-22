@@ -24,6 +24,7 @@ def main():
     api.add_resource(controllers.Movie, '/movie/<string:movie_id>/')
     api.add_resource(controllers.Link, '/link/<string:link_id>/')
     api.add_resource(controllers.NewMovie, '/new/movie/<string:page>/')
+    api.add_resource(controllers.NewTv, '/new/tv/<string:page>/')
 
     app.run(host='0.0.0.0', debug=True)
 
