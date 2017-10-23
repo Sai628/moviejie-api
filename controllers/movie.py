@@ -1,11 +1,11 @@
 # coding=utf-8
 
-from flask_restful import Resource
-
 from app import cache
-from util.helper import *
 from config import config
+from flask_restful import Resource
 from model import MovieInfo, LinkInfo, ResourceInfo
+from util.helper import *
+from util.helper import get_p_text
 
 
 class Movie(Resource):
@@ -87,8 +87,3 @@ class Movie(Resource):
 
     def __repr__(self):
         return "%s" % self.__class__.__name__
-
-
-def get_p_text(tag, class_name):
-    p_tag = tag.find('p', class_=class_name)
-    return p_tag.text.split('：')[1].strip() if p_tag is not None else ''

@@ -78,3 +78,19 @@ def fail(info=None, max_log_len=2000):
     response_body = json_dumps(info)
     log.debug("response:%s", response_body[0:max_log_len])
     return json.loads(response_body)
+
+
+def get_p_text(tag, class_name):
+    return get_tag_child_text(tag, child_tag_name='p', class_name=class_name)
+
+
+def get_span_text(tag, class_name):
+    return get_tag_child_text(tag, child_tag_name='span', class_name=class_name)
+
+
+def get_tag_child_text(tag, child_tag_name, class_name):
+    child_tag = tag.find(child_tag_name, class_=class_name)
+    if child_tag is not None:
+        text_list = child_tag.text.split('：')[1:]
+        return ''.join(text_list).strip()
+    return ''
