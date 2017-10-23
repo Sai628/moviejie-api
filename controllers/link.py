@@ -2,9 +2,10 @@
 
 import time
 
+from flask_restful import Resource
+
 from app import cache
 from config import config
-from flask_restful import Resource
 from model import LinkDetailInfo
 from selenium import webdriver
 from util.helper import *

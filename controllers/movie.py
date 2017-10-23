@@ -1,11 +1,11 @@
 # coding=utf-8
 
+from flask_restful import Resource
+
 from app import cache
 from config import config
-from flask_restful import Resource
 from model import MovieInfo, LinkInfo, ResourceInfo
 from util.helper import *
-from util.helper import get_p_text
 
 
 class Movie(Resource):
