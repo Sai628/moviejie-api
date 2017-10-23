@@ -29,7 +29,7 @@ class NewTv(Resource):
         })
 
     def __repr__(self):
-        return "%s" & self.__class__.__name__
+        return "%s" % self.__class__.__name__
 
 
 def get_movie_simple_infos(url):
