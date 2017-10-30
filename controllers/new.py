@@ -45,8 +45,8 @@ class NewOST(Resource):
             title_tag = li_tag.find('p', class_='movie_name')
             movie_name = title_tag.text.strip() if title_tag is not None else ''
 
-            # 电影详情页面链接
-            movie_link = title_tag.a['href'] if title_tag.a is not None else ''
+            # 原声大碟详情页面链接
+            ost_link = title_tag.a['href'] if title_tag.a is not None else ''
 
             # 封面图片
             banner_img_tag = li_tag.find('img', class_='banner')
@@ -57,7 +57,7 @@ class NewOST(Resource):
             country = get_span_text(li_tag, 'country')  # 地区/语言
             publish_time = get_span_text(li_tag, 'time')  # 发行时间
             file_type = get_span_text(li_tag, 'filetype')  # 资源格式
-            ost_simple_info = OSTSimpleInfo(movie_name=movie_name, movie_link=movie_link, banner=banner,
+            ost_simple_info = OSTSimpleInfo(movie_name=movie_name, ost_link=ost_link, banner=banner,
                                             res_name=res_name, res_size=res_size, country=country,
                                             publish_time=publish_time, file_type=file_type)
             ost_simple_infos.append(ost_simple_info.info())

@@ -7,10 +7,10 @@ class OSTSimpleInfo:
     """
     原声大碟简略信息model. 对应URL: /new/ost/ 页面中的数据结构
     """
-    def __init__(self, movie_name=None, movie_link=None, banner=None, res_name=None,
+    def __init__(self, movie_name=None, ost_link=None, banner=None, res_name=None,
                  res_size=None, country=None, publish_time=None, file_type=None):
         self.movie_name = movie_name  # 电影名称
-        self.movie_link = movie_link  # 电影详情页面链接
+        self.ost_link = ost_link  # 原声大碟详情页面链接
         self.banner = banner  # 封面图URL
         self.res_name = res_name  # 资源名称
         self.res_size = res_size  # 资源大小
@@ -21,7 +21,7 @@ class OSTSimpleInfo:
     def info(self):
         return DictObj({
             "movie_name": self.movie_name,
-            "movie_link": self.movie_link,
+            "ost_link": self.ost_link,
             "banner": self.banner,
             "res_name": self.res_name,
             "res_size": self.res_size,
