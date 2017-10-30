@@ -6,6 +6,7 @@ from .LinkDetailInfo import LinkDetailInfo
 from .MovieInfo import MovieInfo
 from .MovieSimpleInfo import MovieSimpleInfo
 from .NewInfo import NewInfo
+from .OSTInfo import OSTInfo
 from .OSTSimpleInfo import OSTSimpleInfo
 from .ResourceInfo import ResourceInfo
 
@@ -17,6 +18,7 @@ __all__ = [
     MovieInfo,
     MovieSimpleInfo,
     NewInfo,
+    OSTInfo,
     OSTSimpleInfo,
     ResourceInfo,
 ]
