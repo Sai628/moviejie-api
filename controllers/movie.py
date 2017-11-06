@@ -11,7 +11,7 @@ from util.helper import *
 class Movie(Resource):
     @cache.memoize(timeout=config.CACHE_EXPIRE_TIME)
     def get(self, movie_id):
-        movie_soup = get_html_soup(config.API_DOMAIN + "/movie/" + movie_id)
+        movie_soup = get_html_soup('%s/movie/%s' % (config.API_DOMAIN, movie_id))
 
         # "电影/电视剧"标题
         title = movie_soup.find('div', id='movie_title').text.strip()

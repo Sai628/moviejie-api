@@ -11,7 +11,7 @@ from util.helper import *
 class OST(Resource):
     @cache.memoize(timeout=config.CACHE_EXPIRE_TIME)
     def get(self, ost_id):
-        ost_soup = get_html_soup(config.API_DOMAIN + "/ost/" + ost_id)
+        ost_soup = get_html_soup('%s/ost/%s' % (config.API_DOMAIN, ost_id))
 
         # "电影/电视剧"标题
         title_div = ost_soup.find('div', id='ost_title')

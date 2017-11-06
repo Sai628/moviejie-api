@@ -14,7 +14,7 @@ from util.helper import *
 class Link(Resource):
     @cache.memoize(timeout=config.CACHE_EXPIRE_TIME)
     def get(self, link_id):
-        link_soup = get_html_soup(config.API_DOMAIN + '/link/' + link_id)
+        link_soup = get_html_soup('%s/link/%s' % (config.API_DOMAIN, link_id))
 
         # 电影页面链接
         movie_title = ''

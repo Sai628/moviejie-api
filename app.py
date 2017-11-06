@@ -27,6 +27,7 @@ def main():
     api.add_resource(controllers.NewMovie, '/new/movie/<string:page>/')
     api.add_resource(controllers.NewTv, '/new/tv/<string:page>/')
     api.add_resource(controllers.NewOST, '/new/ost/<string:page>/')
+    api.add_resource(controllers.Search, '/search/<string:keyword>/<string:page>/')
 
     app.run(host='0.0.0.0', debug=True)
 

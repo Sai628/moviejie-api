@@ -5,6 +5,7 @@ from .movie import Movie
 from .link import Link
 from .new import NewMovie, NewTv, NewOST
 from .ost import OST
+from .search import Search
 
 
 __all__ = [
@@ -15,4 +16,5 @@ __all__ = [
     NewTv,
     NewOST,
     OST,
+    Search,
 ]
