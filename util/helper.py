@@ -8,6 +8,7 @@ from bs4 import BeautifulSoup
 import requests
 import requests.packages.urllib3
 
+from config import config
 from util import const
 from util import log
 
@@ -17,7 +18,7 @@ requests.packages.urllib3.disable_warnings()
 
 def get_html(url):
     try:
-        response = requests.get(url, verify=False)
+        response = requests.get(url, verify=False, headers=config.SIMULATE_HEADERS, cookies=config.LOGIN_COOKIES)
         return response.text
     except Exception as e:
         print_error("Error: %s\n get_url_content -- %s" % (e, url))
