@@ -14,6 +14,10 @@ class Movie(Resource):
         movie_soup = get_html_soup('%s/movie/%s' % (config.API_DOMAIN, movie_id))
 
         # "电影/电视剧"标题
+        title_div = movie_soup.find('div', id='movie_title')
+        if title_div is None:  # 当不存在标题项时, 表示无法查看电影的详情页(很可能是因为用户权限问题). 这里直接返回None
+            return success({"movie": None})
+
         title = movie_soup.find('div', id='movie_title').text.strip()
 
         # 基本信息字段
