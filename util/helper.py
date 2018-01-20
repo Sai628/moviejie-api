@@ -20,7 +20,7 @@ def get_html(url):
         response = requests.get(url, verify=False)
         return response.text
     except Exception as e:
-        print_error("Error: %s\nget_url_content -- %s" % (e, url))
+        print_error("Error: %s\n get_url_content -- %s" % (e, url))
         return None
 
 
