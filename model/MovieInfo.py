@@ -9,7 +9,7 @@ class MovieInfo:
     """
     def __init__(self, title=None, banner=None, directors=None, writers=None, stars=None, genres=None,
                  country=None, release_date=None, runtime=None, akaname=None, star=None,  story=None,
-                 links=None, related_resources=None, recommended_resources=None):
+                 episode_filters=None, links=None, related_resources=None, recommended_resources=None):
         self.title = title  # 标题
         self.banner = banner  # 封面图URL
         self.directors = directors  # 导演
@@ -22,6 +22,7 @@ class MovieInfo:
         self.akaname = akaname  # 又名
         self.star = star  # 评分
         self.story = story  # 剧情简介
+        self.episode_filters = episode_filters  # 分集查看过滤列表
         self.links = links  # 下载页面链接列表
         self.related_resources = related_resources  # 相关资源列表
         self.recommended_resources = recommended_resources  # 推荐资源列表
@@ -40,6 +41,7 @@ class MovieInfo:
             "akaname": self.akaname,
             "star": self.star,
             "story": self.story,
+            "episode_filters": self.episode_filters,
             "links": self.links,
             "related_resources": self.related_resources,
             "recommended_resources": self.recommended_resources,

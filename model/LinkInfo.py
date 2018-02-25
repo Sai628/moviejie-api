@@ -7,12 +7,13 @@ class LinkInfo:
     """
     下载链接信息model. 对应URL: /movie/<movie_id>/ 页面中下载链接列表每项的数据结构
     """
-    def __init__(self, name=None, size=None, dimen=None, format=None, link=None):
+    def __init__(self, name=None, size=None, dimen=None, format=None, link=None, episode=None):
         self.name = name
         self.size = size
         self.dimen = dimen
         self.format = format
         self.link = link
+        self.episode = episode
 
     def info(self):
         return DictObj({
@@ -20,5 +21,6 @@ class LinkInfo:
             "size": self.size,
             "dimen": self.dimen,
             "format": self.format,
-            "link": self.link
+            "link": self.link,
+            "episode": self.episode
         })

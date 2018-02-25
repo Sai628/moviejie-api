@@ -33,9 +33,15 @@ class Movie(Resource):
         akaname = get_p_text(infos_div, 'akaname')
         star = get_p_text(infos_div, 'star')
 
+        # 分集查看过滤列表
+        filters_div = movie_soup.find('div', id='episode_filter')
+        episode_filters = [{'episode': li_tag.a['data-ep'], 'text': li_tag.text.strip()}
+                            for li_tag in filters_div.find_all('li')] if filters_div is not None else []
+
         # 下载链接信息列表
         link_infos = []
         for tr in movie_soup.find('tbody').find_all('tr'):
+            episode = tr['data-episode']
             name_tag = tr.find('td', class_='movie_name')
             if name_tag is None:
                 continue
@@ -47,7 +53,7 @@ class Movie(Resource):
             format = td_tags[3].text.strip()
             link = td_tags[4].a['href'] if td_tags[4].a is not None else ''
 
-            link_info = LinkInfo(name=name, size=size, dimen=dimen, format=format, link=link)
+            link_info = LinkInfo(name=name, size=size, dimen=dimen, format=format, link=link, episode=episode)
             link_infos.append(link_info.info())
 
         # 相关影视/猜你喜欢列表
@@ -82,7 +88,8 @@ class Movie(Resource):
 
         movie_info = MovieInfo(title=title, banner=banner, directors=directors, writers=writers, stars=stars,
                                genres=genres, country=country, release_date=release_date, runtime=runtime,
-                               akaname=akaname, star=star, story=story, links=link_infos,
+                               akaname=akaname, star=star, story=story,
+                               episode_filters=episode_filters, links=link_infos,
                                related_resources=related_resources, recommended_resources=recommended_resources)
 
         return success({
