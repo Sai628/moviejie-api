@@ -29,7 +29,7 @@ def main():
     api.add_resource(controllers.NewOST, '/new/ost/<string:page>/')
     api.add_resource(controllers.Search, '/search/<string:keyword>/<string:page>/')
 
-    app.run(host='0.0.0.0', debug=True)
+    app.run(host='localhost', port=5001, debug=True)
 
 
 if __name__ == '__main__':
