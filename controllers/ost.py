@@ -35,7 +35,6 @@ class OST(Resource):
             tracks = filter(lambda x: x not in ['\n', 'Wrap-tail begin', 'Wrap-head end'] and str(x) != '<br/>',
                             track_tag.contents)
             track_list = ["".join(str(track).split('.')[1:]).strip() for track in tracks]  # 去除曲目前面的序号
-            print track_list
 
         # 专辑曲目下载链接信息列表
         link_infos = []
