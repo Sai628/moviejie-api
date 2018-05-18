@@ -20,6 +20,5 @@ x_forwarded_for_header = 'X-FORWARDED-FOR'
 loglevel = 'info'
 accesslog = '/var/log/moviejie-api/gunicorn_stdout.log'
 errorlog = '/var/log/moviejie-api/gunicorn_stdout.log'
-access_log_format = '%(h)s %(l)s %(u)s %(t)s "%(r)s" %(s)s %(b)s "%(f)s" "%(a)s" %({X-Forwarded-For}i)s'
 
 reload = True  # Restart workers when code changes
