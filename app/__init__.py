@@ -1,6 +1,6 @@
 # coding=utf-8
 
-import sys
+# import sys
 
 from flask import Flask
 from flask_cache import Cache
@@ -8,8 +8,8 @@ import flask_restful as restful
 
 
 # 解决输出中文报错 UnicodeEncodeError 的问题
-reload(sys)
-sys.setdefaultencoding('utf-8')
+# reload(sys)
+# sys.setdefaultencoding('utf-8')
 
 
 app = Flask(__name__)
