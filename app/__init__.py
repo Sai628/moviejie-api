@@ -3,7 +3,7 @@
 # import sys
 
 from flask import Flask
-from flask_cache import Cache
+from flask_caching import Cache
 import flask_restful as restful
 
 
